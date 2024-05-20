@@ -50,11 +50,30 @@ function App() {
 
 
   const fileReader = new FileReader();
-  fileReader.onload = (e) => {
+  fileReader.onload = async(e) => {
     try {
       const jsonContent = JSON.parse(e.target.result);
+      
       // Add here formData making and post-fetching
-      setState({...state, contents:JSON.stringify(jsonContent, null, 2)})
+      const fd = new FormData();
+      fd.append('jsonContent', jsonContent);
+
+
+      const request = await fetch(
+        hostedFrom+'/generate',
+        { method: "POST",
+          headers: {"Content-Type":"application/x-www-form-urlencoded"},
+          body: new URLSearchParams(fd)
+        }) 
+
+      const response = await request.text();
+
+      console.log(response)
+
+
+      // setState({...state, contents:JSON.stringify(jsonContent, null, 2)})
+      setState({...state, contents:response})
+
     } catch (error) {
       console.error('Error reading or parsing the file:', error);
     }
@@ -63,14 +82,16 @@ function App() {
 
   return (
     <>
+      {state.contents ?
+      <div dangerouslySetInnerHTML={{__html:state.contents}}/> :
+      <>
       <form onSubmit={generate}>
         <input type="file" id="jsonUpload" name="jsonUpload" accept=".json" onChange={handleFileChange} />
         <button type="submit">submit</button>
       </form>
-      {state.contents && state.contents}
-
       <button onClick={newOne}>elpepe </button>
-
+      </>
+      }
     </>
   )
 }
