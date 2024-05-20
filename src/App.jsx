@@ -56,7 +56,7 @@ function App() {
       
       // Add here formData making and post-fetching
       const fd = new FormData();
-      fd.append('jsonContent', jsonContent);
+      fd.append('jsonContent', JSON.stringify(jsonContent));
 
 
       const request = await fetch(
@@ -68,11 +68,26 @@ function App() {
 
       const response = await request.text();
 
-      console.log(response)
+      // console.log(response)
+
+      // const data = await response.json()
+      const blob = new Blob([response]);
+      const url = URL.createObjectURL(blob)
+
+      const a = document.createElement('a')
+      a.href=url
+      a.download='cv.html'
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
 
 
       // setState({...state, contents:JSON.stringify(jsonContent, null, 2)})
       setState({...state, contents:response})
+
+
+
 
     } catch (error) {
       console.error('Error reading or parsing the file:', error);
