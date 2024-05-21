@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import apiUrl from './config';
 
-const hostedFrom = `http://localhost:3000`
+// const hostedFrom = `http://localhost:3000`
+// const hostedFrom = `https://cvmkr-backend.onrender.com`
+const hostedFrom = apiUrl;
+
 
 function App() {
   const [state, setState] = useState({yourjson:"", file:null})
