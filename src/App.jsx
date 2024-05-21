@@ -74,17 +74,17 @@ function App() {
       const blob = new Blob([response]);
       const url = URL.createObjectURL(blob)
 
-      const a = document.createElement('a')
-      a.href=url
-      a.download='cv.html'
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
+      // const a = document.createElement('a')
+      // a.href=url
+      // a.download='cv.html'
+      // document.body.appendChild(a)
+      // a.click()
+      // document.body.removeChild(a)
+      // URL.revokeObjectURL(url)
 
 
       // setState({...state, contents:JSON.stringify(jsonContent, null, 2)})
-      setState({...state, contents:response})
+      setState({...state, contents:response, cv:url})
 
 
 
@@ -97,19 +97,35 @@ function App() {
 
   return (
     <>
-      {state.contents ?
-      <div dangerouslySetInnerHTML={{__html:state.contents}}/> :
       <>
+      <h1>CV-maker<i className="bi bi-file-earmark-check"></i></h1>
+          <p>Download the JSON and model it after your own CV</p>
+      <div className="d-grid gap-2">
+        <button onClick={newOne} className='btn btn-primary'>New <i className="bi bi-filetype-json"></i></button>
+      </div>
       <form onSubmit={generate}>
-        <input type="file" id="jsonUpload" name="jsonUpload" accept=".json" onChange={handleFileChange} />
-        <button type="submit">submit</button>
+        <input className='form-control'  type="file" id="jsonUpload" name="jsonUpload" accept=".json" onChange={handleFileChange} />
+
+        <img src="./src/assets/pezotecv.jpeg" alt="nosy pezote!" useMap="#pezote" width="307" height="307"/>
+
+        <map name="pezote">
+          <area onClick={(e)=>{e.target.parentElement.parentElement.requestSubmit()}} shape="circle" coords="174,163,25" alt="Nosy pezote!" className="pointer"/>
+        </map>
+
       </form>
-      <button onClick={newOne}>elpepe </button>
       </>
-      }
+      { state.cv && <>If you like this <strong>preview</strong>, download the actual file <a href={state.cv} download="cv.html"> here </a></> }
+      {state.contents && <div dangerouslySetInnerHTML={{__html:state.contents}}/> }
     </>
   )
 }
+
+
+          // <div className="d-grid gap-2">
+          //    <button className='btn btn-success h2' type="submit"><i className="bi bi-cloud-arrow-up"></i></button>
+          //  </div>
+
+
       // { state.url && <a href={state.url} download="your_json.json"> Download </a> }
 
 export default App
