@@ -106,7 +106,7 @@ function App() {
       <form onSubmit={generate}>
         <input className='form-control'  type="file" id="jsonUpload" name="jsonUpload" accept=".json" onChange={handleFileChange} />
 
-        <img src="./src/assets/pezotecv.jpeg" alt="nosy pezote!" useMap="#pezote" width="307" height="307"/>
+        <img src="./pezotecv.jpeg" alt="nosy pezote!" useMap="#pezote" width="307" height="307"/>
 
         <map name="pezote">
           <area onClick={(e)=>{e.target.parentElement.parentElement.requestSubmit()}} shape="circle" coords="174,163,25" alt="Nosy pezote!" className="pointer"/>
