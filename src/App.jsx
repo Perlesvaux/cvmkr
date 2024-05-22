@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+// import Preview from './Preview.jsx'
 import apiUrl from './config';
 
 // const hostedFrom = `http://localhost:3000`
@@ -48,6 +49,8 @@ function App() {
       alert('No file selected');
       return;
     }
+
+    setState({...state, contents:`<img src="./pezoteloadimg.png" class="loader"/>`})
 
     fileReader.readAsText(state.file);
   };
@@ -111,19 +114,26 @@ function App() {
       <form onSubmit={generate}>
         <input className='form-control'  type="file" id="jsonUpload" name="jsonUpload" accept=".json" onChange={handleFileChange} />
 
-        <img src="./pezotecv.jpeg" alt="nosy pezote!" useMap="#pezote" width="307" height="307"/>
+        <img src="./pezotecv.jpeg" alt="nosy pezote!" useMap="#pezote" width="307px" height="307px"/>
 
         <map name="pezote">
           <area onClick={(e)=>{e.target.parentElement.parentElement.requestSubmit()}} shape="circle" coords="174,163,25" alt="Nosy pezote!" className="pointer"/>
         </map>
 
+
       </form>
       </>
       { state.cv && <>If you like this <strong>preview</strong>, download the actual file <a href={state.cv} download="cv.html"> here </a></> }
-      {state.contents && <div dangerouslySetInnerHTML={{__html:state.contents}}/> }
+
+      { state.contents && <div dangerouslySetInnerHTML={{__html:state.contents}}/> }
+
+
     </>
   )
 }
+
+
+      // <img src="./pezoteloadimg.png" className="loader"/>
 
 
           // <div className="d-grid gap-2">
