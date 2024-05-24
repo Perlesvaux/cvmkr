@@ -7,10 +7,12 @@ import apiUrl from './config';
 // const hostedFrom = `https://cvmkr-backend.onrender.com`
 const hostedFrom = apiUrl;
 
-const flavors = {label: 'Flavor', name:'flavors', options:['zephyr', 'yeti', 'vapor', 'united', 'superhero', 'spacelab', 'solar', 'slate', 'sketchy', 'simplex', 'sandstone', 'quartz', 'pulse', 'morph', 'minty', 'materia', 'lux', 'lumen', 'litera', 'journal', 'flatly', 'darkly', 'cyborg', 'cerulean', 'cosmo']}
-const imageSize ={label: 'Image Size',  name:'imageSize', options:[0, 1, 2]}
-const textColor = {label: 'Text Color', name:'textColor', options:['light', 'dark', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'body', 'muted', 'white', 'black-50', 'white-50']}
-const backgroundColor = {label: 'Background Color', name:'backgroundColor', options:['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']}
+const options = [
+  {label: 'Flavor', name:'flavors', options:['zephyr', 'yeti', 'vapor', 'united', 'superhero', 'spacelab', 'solar', 'slate', 'sketchy', 'simplex', 'sandstone', 'quartz', 'pulse', 'morph', 'minty', 'materia', 'lux', 'lumen', 'litera', 'journal', 'flatly', 'darkly', 'cyborg', 'cerulean', 'cosmo']},
+  {label: 'Image Size',  name:'imageSize', options:[0, 1, 2]},
+  {label: 'Text Color', name:'textColor', options:['light', 'dark', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'body', 'muted', 'white', 'black-50', 'white-50']},
+  {label: 'Background Color', name:'backgroundColor', options:['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']}
+]
 
 function App() {
   const [state, setState] = useState({yourjson:"", file:null, imageSize:"default", flavor:"default"})
@@ -58,13 +60,13 @@ function App() {
 
   function renderingOption(kv){
     return(
-    <>
+    <div key={kv.name} >
       <label> {kv.label} </label>
       <select className='form-select' name={kv.name} onChange={handleSelectChange}> 
         <option value="default">default</option>
         {kv.options.map((element)=> <option key={element} value={element}>{element}</option>)}
       </select>
-    </>)
+    </div>)
   }
 
 
@@ -142,18 +144,13 @@ function App() {
       <form onSubmit={generate}>
         <input className='form-control'  type="file" id="jsonUpload" name="jsonUpload" accept=".json" onChange={handleFileChange} required />
 
-
+          <div className='flx'>
 
           {
-            renderingOption(flavors)
-          }
-          {
-
-            renderingOption(imageSize)
+            options.map((option)=> renderingOption(option))
           }
 
-
-
+          </div>
 
         <img src="./pezotecv.jpeg" alt="nosy pezote!" useMap="#pezote" width="307px" height="307px"/>
 
