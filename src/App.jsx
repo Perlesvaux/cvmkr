@@ -7,13 +7,10 @@ import apiUrl from './config';
 // const hostedFrom = `https://cvmkr-backend.onrender.com`
 const hostedFrom = apiUrl;
 
-const flavors = ['zephyr', 'yeti', 'vapor', 'united', 'superhero', 'spacelab', 'solar', 'slate', 'sketchy', 'simplex', 'sandstone', 'quartz', 'pulse', 'morph', 'minty', 'materia', 'lux', 'lumen', 'litera', 'journal', 'flatly', 'darkly', 'cyborg', 'cerulean', 'cosmo']
-
-const imageSize = [0, 1, 2]
-
-const textColor = ['light', 'dark', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'body', 'muted', 'white', 'black-50', 'white-50']
-
-const backgroundColor = ['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']
+const flavors = {label: 'Flavor', name:'flavors', options:['zephyr', 'yeti', 'vapor', 'united', 'superhero', 'spacelab', 'solar', 'slate', 'sketchy', 'simplex', 'sandstone', 'quartz', 'pulse', 'morph', 'minty', 'materia', 'lux', 'lumen', 'litera', 'journal', 'flatly', 'darkly', 'cyborg', 'cerulean', 'cosmo']}
+const imageSize ={label: 'Image Size',  name:'imageSize', options:[0, 1, 2]}
+const textColor = {label: 'Text Color', name:'textColor', options:['light', 'dark', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'body', 'muted', 'white', 'black-50', 'white-50']}
+const backgroundColor = {label: 'Background Color', name:'backgroundColor', options:['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']}
 
 function App() {
   const [state, setState] = useState({yourjson:"", file:null, imageSize:"default", flavor:"default"})
@@ -56,6 +53,18 @@ function App() {
     const value = event.target.value
     setState({...state, [field]:value})
 
+  }
+
+
+  function renderingOption(kv){
+    return(
+    <>
+      <label> {kv.label} </label>
+      <select className='form-select' name={kv.name} onChange={handleSelectChange}> 
+        <option value="default">default</option>
+        {kv.options.map((element)=> <option key={element} value={element}>{element}</option>)}
+      </select>
+    </>)
   }
 
 
@@ -134,27 +143,15 @@ function App() {
         <input className='form-control'  type="file" id="jsonUpload" name="jsonUpload" accept=".json" onChange={handleFileChange} required />
 
 
-        <select className="form-select" name="flavor" onChange={handleSelectChange}>
-          <option value="default">default</option>
-          {flavors.map((element) => <option key={element} value={element}>{element}</option> )}
-        </select>
 
+          {
+            renderingOption(flavors)
+          }
+          {
 
-        <select className="form-select" name="imageSize" onChange={handleSelectChange}>
-          <option value="default">default</option>
-          {imageSize.map((element) => <option key={element} value={element}>{element}</option> )}
-        </select>
+            renderingOption(imageSize)
+          }
 
-        <select className='form-select' name="textColor" onChange={handleSelectChange}> 
-          <option value="default">default</option>
-          {textColor.map((element)=> <option key={element} value={element}>{element}</option>)}
-        </select>
-
-        <select className="form-select" name='backgroundColor' onChange={handleSelectChange}>
-          <option value="default">default</option>
-          {backgroundColor.map((element)=> <option key={element} value={element}>{element}</option>)}
-
-        </select>
 
 
 
@@ -188,32 +185,26 @@ function App() {
 
 
 
-        // <select class="form-select">
-        //  <option value='zephyr'   > zephyr        </option>
-        //  <option value='yeti'     > yeti           </option>
-        //  <option value='vapor'    > vapor          </option>
-        //  <option value='united'   > united        </option>
-        //  <option value='superhero'> superhero   </option>
-        //  <option value='spacelab' > spacelab    </option>
-        //  <option value='solar'    > solar          </option>
-        //  <option value='slate'    > slate         </option>
-        //  <option value='sketchy'  > sketchy     </option>
-        //  <option value='simplex'  > simplex     </option>
-        //  <option value='sandstone'> sandstone  </option>
-        //  <option value='quartz'   > quartz       </option>
-        //  <option value='pulse'    > pulse         </option>
-        //  <option value='morph'    > morph         </option>
-        //  <option value='minty'    > minty         </option>
-        //  <option value='materia'  > materia     </option>
-        //  <option value='lux'      > lux             </option>
-        //  <option value='lumen'    > lumen         </option>
-        //  <option value='litera'   > litera       </option>
-        //  <option value='journal'  > journal     </option>
-        //  <option value='flatly'   > flatly       </option>
-        //  <option value='darkly'   > darkly       </option>
-        //  <option value='cyborg'   > cyborg       </option>
-        //  <option value='cerulean' > cerulean   </option>
-        //  <option value='cosmo'    > cosmo'          </option>
+        // <select className="form-select" name="flavor" onChange={handleSelectChange}>
+        //   <option value="default">default</option>
+        //   {flavors.map((element) => <option key={element} value={element}>{element}</option> )}
+        // </select>
+        //
+        //
+        // <select className="form-select" name="imageSize" onChange={handleSelectChange}>
+        //   <option value="default">default</option>
+        //   {imageSize.map((element) => <option key={element} value={element}>{element}</option> )}
+        // </select>
+        //
+        // <select className='form-select' name="textColor" onChange={handleSelectChange}> 
+        //   <option value="default">default</option>
+        //   {textColor.map((element)=> <option key={element} value={element}>{element}</option>)}
+        // </select>
+        //
+        // <select className="form-select" name='backgroundColor' onChange={handleSelectChange}>
+        //   <option value="default">default</option>
+        //   {backgroundColor.map((element)=> <option key={element} value={element}>{element}</option>)}
+        //
         // </select>
 
 
