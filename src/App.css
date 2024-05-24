@@ -43,10 +43,20 @@
 
 .pointer {cursor: pointer;}
 
+/* .loader { */
+/**/
+/*   width: 307px; */
+/*   height: 307px; */
+/*   animation: spin 2s linear infinite; */
+/* } */
 .loader {
+  /* position: relative; */
+  /* top:-123px; */
+  /* left:90px; */
+  
 
-  width: 307px;
-  height: 307px;
+  width: 55px;
+  height: 55px;
   animation: spin 2s linear infinite;
 }
 

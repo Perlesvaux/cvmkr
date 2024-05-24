@@ -7,9 +7,16 @@ import apiUrl from './config';
 // const hostedFrom = `https://cvmkr-backend.onrender.com`
 const hostedFrom = apiUrl;
 
+const flavors = ['zephyr', 'yeti', 'vapor', 'united', 'superhero', 'spacelab', 'solar', 'slate', 'sketchy', 'simplex', 'sandstone', 'quartz', 'pulse', 'morph', 'minty', 'materia', 'lux', 'lumen', 'litera', 'journal', 'flatly', 'darkly', 'cyborg', 'cerulean', 'cosmo']
+
+const imageSize = [0, 1, 2]
+
+const textColor = ['light', 'dark', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'body', 'muted', 'white', 'black-50', 'white-50']
+
+const backgroundColor = ['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']
 
 function App() {
-  const [state, setState] = useState({yourjson:"", file:null})
+  const [state, setState] = useState({yourjson:"", file:null, imageSize:"default", flavor:"default"})
 
 
   async function newOne (){
@@ -43,6 +50,17 @@ function App() {
     }
   };
 
+
+  function handleSelectChange(event){
+    const field = event.target.name
+    const value = event.target.value
+    setState({...state, [field]:value})
+
+  }
+
+
+
+
   async function generate(e){
     e.preventDefault()
     if (!state.file) {
@@ -50,7 +68,7 @@ function App() {
       return;
     }
 
-    setState({...state, contents:`<img src="./pezoteloadimg.png" class="loader"/>`})
+    setState({...state, cv: null, contents:`<div>Don't go away! Your CV will be ready in a minute! </div><img src="./pezoteloadimg.png" class="loader"/>`})
 
     fileReader.readAsText(state.file);
   };
@@ -103,6 +121,7 @@ function App() {
   };
 
 
+
   return (
     <>
       <>
@@ -112,7 +131,32 @@ function App() {
         <button onClick={newOne} className='btn btn-primary'>New <i className="bi bi-filetype-json"></i></button>
       </div>
       <form onSubmit={generate}>
-        <input className='form-control'  type="file" id="jsonUpload" name="jsonUpload" accept=".json" onChange={handleFileChange} />
+        <input className='form-control'  type="file" id="jsonUpload" name="jsonUpload" accept=".json" onChange={handleFileChange} required />
+
+
+        <select className="form-select" name="flavor" onChange={handleSelectChange}>
+          <option value="default">default</option>
+          {flavors.map((element) => <option key={element} value={element}>{element}</option> )}
+        </select>
+
+
+        <select className="form-select" name="imageSize" onChange={handleSelectChange}>
+          <option value="default">default</option>
+          {imageSize.map((element) => <option key={element} value={element}>{element}</option> )}
+        </select>
+
+        <select className='form-select' name="textColor" onChange={handleSelectChange}> 
+          <option value="default">default</option>
+          {textColor.map((element)=> <option key={element} value={element}>{element}</option>)}
+        </select>
+
+        <select className="form-select" name='backgroundColor' onChange={handleSelectChange}>
+          <option value="default">default</option>
+          {backgroundColor.map((element)=> <option key={element} value={element}>{element}</option>)}
+
+        </select>
+
+
 
         <img src="./pezotecv.jpeg" alt="nosy pezote!" useMap="#pezote" width="307px" height="307px"/>
 
@@ -122,12 +166,10 @@ function App() {
 
 
       </form>
+
       </>
       { state.cv && <>If you like this <strong>preview</strong>, download the actual file <a href={state.cv} download="cv.html"> here </a></> }
-
       { state.contents && <div dangerouslySetInnerHTML={{__html:state.contents}}/> }
-
-
     </>
   )
 }
@@ -142,5 +184,39 @@ function App() {
 
 
       // { state.url && <a href={state.url} download="your_json.json"> Download </a> }
+
+
+
+
+        // <select class="form-select">
+        //  <option value='zephyr'   > zephyr        </option>
+        //  <option value='yeti'     > yeti           </option>
+        //  <option value='vapor'    > vapor          </option>
+        //  <option value='united'   > united        </option>
+        //  <option value='superhero'> superhero   </option>
+        //  <option value='spacelab' > spacelab    </option>
+        //  <option value='solar'    > solar          </option>
+        //  <option value='slate'    > slate         </option>
+        //  <option value='sketchy'  > sketchy     </option>
+        //  <option value='simplex'  > simplex     </option>
+        //  <option value='sandstone'> sandstone  </option>
+        //  <option value='quartz'   > quartz       </option>
+        //  <option value='pulse'    > pulse         </option>
+        //  <option value='morph'    > morph         </option>
+        //  <option value='minty'    > minty         </option>
+        //  <option value='materia'  > materia     </option>
+        //  <option value='lux'      > lux             </option>
+        //  <option value='lumen'    > lumen         </option>
+        //  <option value='litera'   > litera       </option>
+        //  <option value='journal'  > journal     </option>
+        //  <option value='flatly'   > flatly       </option>
+        //  <option value='darkly'   > darkly       </option>
+        //  <option value='cyborg'   > cyborg       </option>
+        //  <option value='cerulean' > cerulean   </option>
+        //  <option value='cosmo'    > cosmo'          </option>
+        // </select>
+
+
+
 
 export default App
