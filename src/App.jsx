@@ -8,10 +8,10 @@ import apiUrl from './config';
 const hostedFrom = apiUrl;
 
 const options = [
-  {label: 'Flavor', name:'flavors', options:['zephyr', 'yeti', 'vapor', 'united', 'superhero', 'spacelab', 'solar', 'slate', 'sketchy', 'simplex', 'sandstone', 'quartz', 'pulse', 'morph', 'minty', 'materia', 'lux', 'lumen', 'litera', 'journal', 'flatly', 'darkly', 'cyborg', 'cerulean', 'cosmo']},
-  {label: 'Image Size',  name:'imageSize', options:[0, 1, 2]},
-  {label: 'Text Color', name:'textColor', options:['light', 'dark', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'body', 'muted', 'white', 'black-50', 'white-50']},
-  {label: 'Background Color', name:'backgroundColor', options:['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']}
+  {color:'secondary', label: 'Flavor', name:'flavors', options:['zephyr', 'yeti', 'vapor', 'united', 'superhero', 'spacelab', 'solar', 'slate', 'sketchy', 'simplex', 'sandstone', 'quartz', 'pulse', 'morph', 'minty', 'materia', 'lux', 'lumen', 'litera', 'journal', 'flatly', 'darkly', 'cyborg', 'cerulean', 'cosmo']},
+  {color:'secondary', label: 'Image Size',  name:'imageSize', options:[0, 1, 2]},
+  {color:'secondary', label: 'Text Color', name:'textColor', options:['light', 'dark', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'body', 'muted', 'white', 'black-50', 'white-50']},
+  {color:'secondary', label: 'Background Color', name:'backgroundColor', options:['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']}
 ]
 
 function App() {
@@ -58,20 +58,6 @@ function App() {
   }
 
 
-  function renderingOption(kv){
-    return(
-    <div key={kv.name} >
-      <label> {kv.label} </label>
-      <select className='form-select' name={kv.name} onChange={handleSelectChange}> 
-        <option value="default">default</option>
-        {kv.options.map((element)=> <option key={element} value={element}>{element}</option>)}
-      </select>
-    </div>)
-  }
-
-
-
-
   async function generate(e){
     e.preventDefault()
     if (!state.file) {
@@ -104,33 +90,27 @@ function App() {
 
       const response = await request.text();
 
-      // console.log(response)
-
-      // const data = await response.json()
       const blob = new Blob([response]);
       const url = URL.createObjectURL(blob)
 
-      // const a = document.createElement('a')
-      // a.href=url
-      // a.download='cv.html'
-      // document.body.appendChild(a)
-      // a.click()
-      // document.body.removeChild(a)
-      // URL.revokeObjectURL(url)
-
-
-      // setState({...state, contents:JSON.stringify(jsonContent, null, 2)})
       setState({...state, contents:response, cv:url})
-
-
-
-
 
     } catch (error) {
       console.error('Error reading or parsing the file:', error);
     }
   };
 
+
+  function renderingOption(kv){
+    return(
+    <div key={kv.name} className="optn" >
+      <label> {kv.label} </label>
+      <select className={`badge rounded-pill bg-${kv.color}`} name={kv.name} onChange={handleSelectChange}> 
+        <option value="default">default</option>
+        {kv.options.map((element)=> <option key={element} value={element}>{element}</option>)}
+      </select>
+    </div>)
+  }
 
 
   return (
@@ -139,12 +119,12 @@ function App() {
       <h1>CV-maker<i className="bi bi-file-earmark-check"></i></h1>
           <p>Download the JSON and model it after your own CV</p>
       <div className="d-grid gap-2">
-        <button onClick={newOne} className='btn btn-primary'>New <i className="bi bi-filetype-json"></i></button>
+        <button onClick={newOne} className='btn btn-dark'>New <i className="bi bi-filetype-json"></i></button>
       </div>
       <form onSubmit={generate}>
         <input className='form-control'  type="file" id="jsonUpload" name="jsonUpload" accept=".json" onChange={handleFileChange} required />
 
-          <div className='flx'>
+          <div className="flx">
 
           {
             options.map((option)=> renderingOption(option))

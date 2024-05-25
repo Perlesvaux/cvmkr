@@ -65,4 +65,13 @@
   100% { transform: rotate(360deg); }
 }
 
+.flx {
+  display:flex;
+}
+
+.optn {
+  display:flex;
+  flex-direction: column;
+}
+
 
