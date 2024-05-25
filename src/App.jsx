@@ -11,11 +11,14 @@ const options = [
   {color:'secondary', label: 'Flavor', name:'flavors', options:['zephyr', 'yeti', 'vapor', 'united', 'superhero', 'spacelab', 'solar', 'slate', 'sketchy', 'simplex', 'sandstone', 'quartz', 'pulse', 'morph', 'minty', 'materia', 'lux', 'lumen', 'litera', 'journal', 'flatly', 'darkly', 'cyborg', 'cerulean', 'cosmo']},
   {color:'danger', label: 'Image Size',  name:'imageSize', options:[0, 1, 2]},
   {color:'primary', label: 'Text Color', name:'textColor', options:['light', 'dark', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'body', 'muted', 'white', 'black-50', 'white-50']},
-  {color:'success', label: 'Background Color', name:'backgroundColor', options:['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']}
+  {color:'success', label: 'Background Color', name:'backgroundColor', options:['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']},
+  {color:'warning', label: 'Language', name:'language', options:['spa','eng']}
 ]
 
 function App() {
-  const [state, setState] = useState({yourjson:"", file:null, imageSize:"default", flavors:"default", textColor:"default", backgroundColor:"default"})
+  const [state, setState] = useState(
+    {yourjson:"", file:null, imageSize:"default", flavors:"default", textColor:"default", backgroundColor:"default", language:"default"}
+  )
 
 
   async function newOne (){
@@ -79,10 +82,13 @@ function App() {
       // Add here formData making and post-fetching
       const fd = new FormData();
       fd.append('jsonContent', JSON.stringify(jsonContent));
-      fd.append('flavors', state.flavors)
-      fd.append('imageSize', state.imageSize);
-      fd.append('textColor', state.textColor);
-      fd.append('backgroundColor', state.backgroundColor);
+      // fd.append('flavors', state.flavors)
+      // fd.append('imageSize', state.imageSize);
+      // fd.append('textColor', state.textColor);
+      // fd.append('backgroundColor', state.backgroundColor);
+      // fd.append('language', state.language);
+      for (let choice of options) fd.append(choice.name, state[choice.name])
+
 
 
       const request = await fetch(
@@ -148,7 +154,19 @@ function App() {
       </>
       { state.cv && <>If you like this <strong>preview</strong>, download the actual file <a href={state.cv} download="cv.html"> here </a></> }
       { state.contents && <div dangerouslySetInnerHTML={{__html:state.contents}}/> }
+
+      <div className='card text-dark bg-light mb-3'>
+      <p>Open the resulting HTML file. Do <strong>CTRL+P</strong> and select <strong>Destination: <i>Save to PDF</i></strong></p>
+      <p className='text-secondary'>Best results with these settings:
+        Orientation=<strong><i>Portrait</i></strong>,  Margins=<strong><i>None</i></strong>, Scale=<strong><i>Default</i></strong> (or <strong><i>Fit to page width</i></strong>)
+      </p>
+      </div>
+
+
+
+
     </>
+
   )
 }
 
