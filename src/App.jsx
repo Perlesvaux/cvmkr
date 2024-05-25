@@ -9,9 +9,9 @@ const hostedFrom = apiUrl;
 
 const options = [
   {color:'secondary', label: 'Flavor', name:'flavors', options:['zephyr', 'yeti', 'vapor', 'united', 'superhero', 'spacelab', 'solar', 'slate', 'sketchy', 'simplex', 'sandstone', 'quartz', 'pulse', 'morph', 'minty', 'materia', 'lux', 'lumen', 'litera', 'journal', 'flatly', 'darkly', 'cyborg', 'cerulean', 'cosmo']},
-  {color:'secondary', label: 'Image Size',  name:'imageSize', options:[0, 1, 2]},
-  {color:'secondary', label: 'Text Color', name:'textColor', options:['light', 'dark', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'body', 'muted', 'white', 'black-50', 'white-50']},
-  {color:'secondary', label: 'Background Color', name:'backgroundColor', options:['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']}
+  {color:'danger', label: 'Image Size',  name:'imageSize', options:[0, 1, 2]},
+  {color:'primary', label: 'Text Color', name:'textColor', options:['light', 'dark', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'body', 'muted', 'white', 'black-50', 'white-50']},
+  {color:'success', label: 'Background Color', name:'backgroundColor', options:['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'border-primary', 'border-secondary', 'border-success', 'border-danger', 'border-warning', 'border-info', 'border-light', 'border-dark']}
 ]
 
 function App() {
@@ -105,7 +105,7 @@ function App() {
     return(
     <div key={kv.name} className="optn" >
       <label> {kv.label} </label>
-      <select className={`badge rounded-pill bg-${kv.color}`} name={kv.name} onChange={handleSelectChange}> 
+      <select className={`badge  bg-${kv.color}`} name={kv.name} onChange={handleSelectChange}> 
         <option value="default">default</option>
         {kv.options.map((element)=> <option key={element} value={element}>{element}</option>)}
       </select>
