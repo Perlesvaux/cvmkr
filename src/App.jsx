@@ -114,8 +114,8 @@ function App() {
   function renderingOption(kv){
     return(
     <div key={kv.name} className="optn" >
-      <label> {kv.label} </label>
-      <select className={`badge  bg-${kv.color}`} name={kv.name} onChange={handleSelectChange}> 
+      <label className='fs-5'> {kv.label} </label>
+      <select className={`badge  bg-${kv.color} fs-5`} name={kv.name} onChange={handleSelectChange}> 
         <option value="default">default</option>
         {kv.options.map((element)=> <option key={element} value={element}>{element}</option>)}
       </select>
