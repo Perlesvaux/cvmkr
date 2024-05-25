@@ -15,7 +15,7 @@ const options = [
 ]
 
 function App() {
-  const [state, setState] = useState({yourjson:"", file:null, imageSize:"default", flavor:"default"})
+  const [state, setState] = useState({yourjson:"", file:null, imageSize:"default", flavors:"default", textColor:"default", backgroundColor:"default"})
 
 
   async function newOne (){
@@ -79,6 +79,10 @@ function App() {
       // Add here formData making and post-fetching
       const fd = new FormData();
       fd.append('jsonContent', JSON.stringify(jsonContent));
+      fd.append('flavors', state.flavors)
+      fd.append('imageSize', state.imageSize);
+      fd.append('textColor', state.textColor);
+      fd.append('backgroundColor', state.backgroundColor);
 
 
       const request = await fetch(
