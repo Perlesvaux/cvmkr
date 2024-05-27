@@ -125,7 +125,7 @@ function App() {
 
   return (
     <>
-      <>
+      <div>
       <h1>CV-maker<i className="bi bi-file-earmark-check"></i></h1>
           <p>Download the JSON and model it after your own CV</p>
       <div className="d-grid gap-2">
@@ -151,8 +151,8 @@ function App() {
 
       </form>
 
-      </>
-      { state.cv && <>If you like this <strong>preview</strong>, download the actual file <a href={state.cv} download="cv.html"> here </a></> }
+      </div>
+      { state.cv && <div>If you like this <strong>preview</strong>, download the actual file <a href={state.cv} download="cv.html"> here </a></div> }
       { state.contents && <div style={{maxWidth:"100%"}}  dangerouslySetInnerHTML={{__html:state.contents}}/> }
 
       <div className='card text-dark bg-light mb-3'>
