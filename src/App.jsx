@@ -153,7 +153,7 @@ function App() {
 
       </>
       { state.cv && <>If you like this <strong>preview</strong>, download the actual file <a href={state.cv} download="cv.html"> here </a></> }
-      { state.contents && <div dangerouslySetInnerHTML={{__html:state.contents}}/> }
+      { state.contents && <div style={{maxWidth:"100%"}}  dangerouslySetInnerHTML={{__html:state.contents}}/> }
 
       <div className='card text-dark bg-light mb-3'>
       <p>Open the resulting HTML file. Do <strong>CTRL+P</strong> and select <strong>Destination: <i>Save to PDF</i></strong></p>
